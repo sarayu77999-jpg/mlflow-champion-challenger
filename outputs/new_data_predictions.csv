@@ -1,0 +1,11 @@
+text,prediction,confidence
+The movie was absolutely brilliant and entertaining.,POSITIVE,0.9997050166130066
+I hated every minute of this boring film.,NEGATIVE,0.9990215301513672
+The acting was excellent and the story was engaging.,POSITIVE,0.9995443224906921
+This was one of the worst movies I have ever seen.,NEGATIVE,0.9991274476051331
+The visuals were stunning and the music was beautiful.,POSITIVE,0.9996851682662964
+The plot was confusing and the ending was disappointing.,NEGATIVE,0.9988872408866882
+I would happily watch this movie again.,POSITIVE,0.9976231455802917
+The dialogue was terrible and the characters were annoying.,NEGATIVE,0.9992241859436035
+An enjoyable film with a wonderful performance.,POSITIVE,0.9996910095214844
+I regret spending money on this movie.,NEGATIVE,0.9984880685806274

@@ -1,0 +1,9 @@
+text,label,prediction,confidence
+it 's a charming and often affecting journey . ,1,POSITIVE,0.9998838901519775
+unflinchingly bleak and desperate ,0,NEGATIVE,0.998969554901123
+allows us to hope that nolan is poised to embark a major career as a commercial yet inventive filmmaker . ,1,POSITIVE,0.9996399879455566
+"the acting , costumes , music , cinematography and sound are all astounding given the production 's austere locales . ",1,POSITIVE,0.9996993541717529
+"it 's slow -- very , very slow . ",0,NEGATIVE,0.9996892213821411
+"although laced with humor and a few fanciful touches , the film is a refreshingly serious look at young women . ",1,POSITIVE,0.9998290538787842
+a sometimes tedious film . ,0,NEGATIVE,0.999504566192627
+or doing last year 's taxes with your ex-wife . ,0,NEGATIVE,0.9917595982551575
