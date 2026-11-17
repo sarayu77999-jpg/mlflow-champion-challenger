@@ -1,18 +1,20 @@
+Champion–Challenger Model Comparison
 
-# Champion-Challenger Model Comparison
+1. Task and Models
 
-## 1. Task
+Task: Binary sentiment classification of movie reviews using pretrained Hugging Face models.
 
-Binary sentiment classification of movie reviews using
-pretrained Hugging Face models.
+Dataset: Movie review sentiment dataset containing 872 labelled evaluation examples.
 
-### Model A: Current Champion
-distilbert-base-uncased-finetuned-sst-2-english
+Model A – Initial Champion:
+"distilbert-base-uncased-finetuned-sst-2-english"
 
-### Model B: Challenger
-textattack/bert-base-uncased-SST-2
+Model B – Challenger:
+"textattack/bert-base-uncased-SST-2"
 
-## 2. Tools
+Both models were evaluated using the same 872 labelled movie reviews.
+
+Tools Used:
 
 - Python
 - Hugging Face Transformers
@@ -22,127 +24,89 @@ textattack/bert-base-uncased-SST-2
 - Scikit-learn
 - Matplotlib
 
-## 3. Dataset
+2. How to Run
 
-Both models are evaluated on the same labelled movie
-reviews. The evaluation dataset is stored in:
-
-data/eval_inputs.csv
-
-The final Champion is tested on 10 new reviews stored in:
-
-data/new_data.csv
-
-## 4. Champion Decision Rule
-
-Primary metric: F1-score.
-
-Higher F1-score is better.
-
-Model A is the initial Champion.
-
-Model B replaces Model A only if:
-
-F1_B - F1_A >= 0.01
-
-Otherwise, Model A remains Champion.
-
-Inference latency is recorded as a secondary metric.
-Lower latency is preferable. When the F1 improvement
-is below the required margin, Model A remains Champion,
-and latency is discussed as a trade-off.
-
-This rule is defined before the final evaluation.
-
-## 5. How to Run
-
-Install dependencies:
+Step 1: Install dependencies
 
 pip install -r requirements.txt
 
-Start the MLflow server:
+Step 2: Start the MLflow server
 
 python -m mlflow server --host 127.0.0.1 --port 5000
 
-In a separate terminal, execute:
+Step 3: Evaluate both models
+
+Open a second terminal and run:
 
 python evaluate.py
+
+Step 4: Register Champion and Challenger
+
 python register_champion.py
+
+Step 5: Predict on new data
+
 python predict_from_mlflow.py
 
-Open MLflow at:
+Open the MLflow dashboard:
 
 http://127.0.0.1:5000
 
-## 6. MLflow Configuration
+3. Champion Selection Rule
 
-Experiment:
-hf-sentiment-champion-challenger
+Model A is the initial Champion, and Model B is the Challenger.
 
-Registered model:
-sentiment-model
+The primary evaluation metric is F1-score.
 
-Registry aliases:
-champion
-challenger
+Model B replaces Model A only if:
 
-Evaluation metric:
-f1
+"F1_B - F1_A >= 0.01"
 
-Logged model path/name:
-model
+Otherwise, Model A remains the Champion.
 
-Model input:
-Pandas DataFrame containing a text column.
+Inference latency is recorded as a secondary metric. Lower latency is preferable. If the F1-score improvement does not meet the required threshold, Model A remains Champion.
 
-## 7. Results
+This rule was defined before the final evaluation.
 
-To be completed after evaluation.
+4. Results Table
 
-| Metric | Model A | Model B |
-|--------|---------|---------|
-| Accuracy | TBD | TBD |
-| Precision | TBD | TBD |
-| Recall | TBD | TBD |
-| F1-score | TBD | TBD |
-| Average latency (ms) | TBD | TBD |
-| Total inference time (s) | TBD | TBD |
+Both models were evaluated on the same 872 examples.
 
-## 8. Champion Decision
+Metric| Model A| Model B
+Accuracy| 0.9106| 0.9234
+Precision| 0.8978| 0.9181
+Recall| 0.9300| 0.9346
+F1-score| 0.9137| 0.9263
+Average latency (ms/sample)| 21.64| 44.66
 
-To be completed after running both models.
+F1-score difference:
 
-Explain:
-- Which model won?
-- What was the F1-score difference?
-- Was the difference meaningful?
-- Which model was faster?
-- What were the trade-offs?
+"0.9263 - 0.9137 = 0.0126"
 
-## 9. Prediction on New Data
+Winning model: Model B
 
-predict_from_mlflow.py loads the model using:
+5. Champion Decision
 
-models:/sentiment-model@champion
+Model B (textattack/bert-base-uncased-SST-2) was selected as the Champion because it achieved an F1-score of 0.9263, compared to Model A's F1-score of 0.9137. The improvement was 0.0126, exceeding the predefined minimum improvement of 0.01.
 
-It does not directly invoke the Hugging Face pipeline.
+Model B also achieved better accuracy, precision and recall. Its accuracy was 0.9234, while Model A achieved 0.9106. This indicates that Model B performed better overall on the evaluation dataset.
 
-The script saves predictions to:
+However, Model A was faster during inference. Its average latency was approximately 21.64 milliseconds per example, whereas Model B required approximately 44.66 milliseconds per example. Therefore, Model A has an advantage when prediction speed is important.
 
-outputs/new_data_predictions.csv
+Despite the higher latency, Model B was selected because the improvement in F1-score satisfied the predefined Champion selection rule. The decision prioritised classification performance over inference speed.
 
-## 10. Limitations
+Both models were registered in MLflow. Model B was assigned the "champion" alias, and Model A was assigned the "challenger" alias.
 
-The evaluation uses a relatively small subset of
-movie reviews. Results may vary on other datasets.
+6. Limitations and AI Assistance Declaration
 
-The pretrained models are not fine-tuned for this
-assignment.
+Limitations
 
-## 11. AI Assistance Declaration
+- The evaluation was performed on a limited dataset of 872 movie reviews.
+- Results may vary when tested on different datasets or types of text.
+- Both models were pretrained and were not fine-tuned specifically for this assignment.
+- Inference latency may vary depending on hardware and system performance.
+- The evaluation results may not represent performance on all real-world sentiment classification tasks.
 
-AI assistance was used to help develop and explain
-the Python implementation and documentation.
+AI Assistance Declaration
 
-The code and results must be reviewed and understood
-before submission.
+AI assistance was used for understanding the assignment, Python implementation, debugging and documentation. The team reviewed the implementation and evaluation results and is responsible for understanding the code and explaining the model comparison and selection process during the viva.
